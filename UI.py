@@ -14,6 +14,16 @@ from tkinter import filedialog
 # Copyright (c) 2023 Tom Schimansky
 # https://github.com/TomSchimansky/CustomTkinter/blob/master/LICENSE
 
+
+
+# Potential future features:
+# File Explorer button to select PDF file
+# Display the output before saving to a file
+# Save output to a file button
+# Add a settings menu to change the output format (CSV, JSON, etc.)
+# Add a settings menu to change the output location
+# Add a settings menu to change the output file name
+#
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -64,7 +74,7 @@ class App(customtkinter.CTk):
         self.home_frame_large_image_label.grid(row=0, column=0, padx=20, pady=10)
 
         # MENU BUTTONS
-        self.home_frame_button_1 = customtkinter.CTkButton(self.home_frame, text="Button1", image=self.image_icon_image)
+        self.home_frame_button_1 = customtkinter.CTkButton(self.home_frame, text="Select PDF", image=self.image_icon_image, command=self.select_file)
         self.home_frame_button_1.grid(row=1, column=0, padx=20, pady=10)
         self.home_frame_button_2 = customtkinter.CTkButton(self.home_frame, text="Button2", image=self.image_icon_image, compound="right")
         self.home_frame_button_2.grid(row=2, column=0, padx=20, pady=10)
@@ -101,14 +111,14 @@ class App(customtkinter.CTk):
     def change_appearance_mode_event(self, new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
-    def select_file():
+    def select_file(file):
         filetypes = (
-            ('text files', '*.txt'),
+            ('PDF Files', '*.pdf'),
             ('All files', '*.*')
         )
 
         filename = filedialog.askopenfilename(
-            title='Open a file',
+            title='Open a PDF file',
             initialdir='/',
             filetypes=filetypes)
 
