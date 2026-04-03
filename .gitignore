@@ -6,4 +6,5 @@ ENV/
 
 
 .vscode/
-
+Output.txt
+/ITEMS
