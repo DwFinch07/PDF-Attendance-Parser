@@ -12,3 +12,6 @@ Output.txt
 attendance_absences.txt
 build_exe.bat
 UI.spec
+_internal/
+dist/
+build/
