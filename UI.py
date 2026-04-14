@@ -75,6 +75,7 @@ def extract_child_name(lines):
     # Find the line containing the centre name — the child's name is near it
     dc_idx = None
     for i, line in enumerate(lines):
+        #find line that says "De Colores Learning Center" — the child name is usually on the same line
         if "De Colores Learning Center" in line:
             dc_idx = i
             break
@@ -250,10 +251,10 @@ def build_report(records, school_days, month_name, year):
     return "\n".join(lines), stats  # Join all lines into one big string
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  UI colours
+#  UI colors
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Hex colour constants used throughout the UI — defined once so they're easy to change
+# Hex color constants used throughout the UI — defined once so they're easy to change
 # Most colors didnt use (remove the ones not used like  accemt 2)
 ACCENT   = "#4F8EF7"
 ACCENT2  = "#A78BFA"
@@ -414,7 +415,8 @@ class App(ctk.CTk):
         self._file_label = ctk.CTkLabel(drop, text="No file selected",
                                          font=("Courier New", 11), text_color=SUBTEXT)
         self._file_label.grid(row=3, column=0, pady=(0, 8))
-
+        
+        #Progress bar is still broken but core functionality works (EDIT LATER)
         self._progress = ctk.CTkProgressBar(drop, width=400, height=6,
                                              fg_color=BORDER, progress_color=ACCENT,
                                              corner_radius=3)
@@ -620,6 +622,7 @@ class App(ctk.CTk):
             return
 
         self._parsing = True
+        #ensure buttons are disabled found crashes happen when clicking parse multiple times
         self._parse_btn.configure(state="disabled", text="⏳  Parsing…")
         self._save_btn.configure(state="disabled")
         self._log_write(f"Parsing {os.path.basename(self._pdf_path)}…")
