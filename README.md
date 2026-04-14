@@ -19,8 +19,8 @@ A desktop app that reads monthly attendance sign-in/sign-out PDFs from De Colore
 
 <img width="989" height="674" alt="image" src="https://github.com/user-attachments/assets/f0e1e6e8-61ba-46af-9cf0-7d8a6fb977f7" />
 
+<img width="996" height="698" alt="image" src="https://github.com/user-attachments/assets/6c480358-884a-49b0-9e90-ec6f676e5872" />
 
-<img width="998" height="679" alt="image" src="https://github.com/user-attachments/assets/8a239237-9178-49f5-aa36-352980699cb0" />
 
 <img width="992" height="682" alt="image" src="https://github.com/user-attachments/assets/dddd0485-cf5f-46ad-a3c5-0e261c297773" />
 
