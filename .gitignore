@@ -8,3 +8,7 @@ ENV/
 .vscode/
 Output.txt
 /ITEMS
+
+attendance_absences.txt
+build_exe.bat
+UI.spec
