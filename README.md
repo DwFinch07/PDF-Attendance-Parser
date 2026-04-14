@@ -13,7 +13,7 @@ A desktop app that reads monthly attendance sign-in/sign-out PDFs from De Colore
 
 ## Screenshots
 
-<img width="993" height="690" alt="image" src="https://github.com/user-attachments/assets/e5569f6c-c1c1-4139-898f-42c0f036c208" />
+
 
 
 
@@ -21,6 +21,8 @@ A desktop app that reads monthly attendance sign-in/sign-out PDFs from De Colore
 
 <img width="996" height="698" alt="image" src="https://github.com/user-attachments/assets/6c480358-884a-49b0-9e90-ec6f676e5872" />
 
+Showcase of Return Output:
+<img width="1002" height="686" alt="image" src="https://github.com/user-attachments/assets/bc5a87bd-549f-40b7-a266-1c55589e6071" />
 
 Example of template used for this application: 
 <img width="1107" height="583" alt="image" src="https://github.com/user-attachments/assets/5ffc4dc0-d026-45c4-8c23-b54f450154f1" />
@@ -39,4 +41,4 @@ pdfplumber
 
 
 ## Warning
-This PDF scanner is purpose-built for De Colores Learning Center & Childcare. While core scanning functions should work out of the box for most template layouts, the parsing logic: extract_child_name (if "" line) may require significant adjustments if the attendance sheet format differs from the expected template. Showcase of example template is above requirements.
+This PDF scanner is purpose-built for De Colores Learning Center & Childcare (Arizona Department of Economic Security Sign-In / Sign-Out Record). While core scanning functions should work out of the box for most template layouts, the parsing logic: extract_child_name (if "" line) may require significant adjustments if the attendance sheet format differs from the expected template. Showcase of example template is above requirements.
