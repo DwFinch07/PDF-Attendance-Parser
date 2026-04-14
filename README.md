@@ -36,4 +36,4 @@ pdfplumber
 
 
 
-Warning: This PDF scanner only works for De Colores Learning Center & Childcare, major changes will have to be done with parsing function (change this functions ( extract_child_name (if "" line), most functions should work out of the box depending on how "usual attendance sheets are created") to scan a different template. Ex of how template looked for my application: <img width="1107" height="583" alt="image" src="https://github.com/user-attachments/assets/5ffc4dc0-d026-45c4-8c23-b54f450154f1" />
+Warning: This PDF scanner only works for De Colores Learning Center & Childcare, major changes will have to be done with parsing function (extract_child_name (if "" line), most functions should work out of the box depending on how attendance sheet is formatted) to scan a different template. Ex of how template looked for my application: <img width="1107" height="583" alt="image" src="https://github.com/user-attachments/assets/5ffc4dc0-d026-45c4-8c23-b54f450154f1" />
