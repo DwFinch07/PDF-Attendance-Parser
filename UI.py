@@ -613,6 +613,7 @@ class App(ctk.CTk):
                          self._stat_perfect, self._stat_groups):
                 card.update_value("—")
 
+
     def _start_parse(self):
         if not self._pdf_path or self._parsing:
             return  # Guard: do nothing if no file selected or already parsing
