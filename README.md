@@ -1,17 +1,17 @@
 PDF Attendance Parser
 A desktop app that reads monthly attendance sign-in/sign-out PDFs from De Colores Learning Center & Childcare and generates an absence report — showing which days each child missed, and grouping children who share the same absent days.
 
-Features
+## Features
 
-Auto-detects month and year from the PDF header.
-Extracts attended days for each child using sign-in time patterns.
-Groups children who missed the same days (for efficient notification).
-Prioritises consecutive absences when a child has more than 5 absent days.
-Excludes holidays/closed days you specify — they're invisible to the report.
-Saves the report as a plain .txt file.
-Progress bar and status log keep you informed while parsing.
+- Auto-detects month and year from the PDF header
+- Extracts attended days for each child using sign-in time patterns
+- Groups children who missed the same days
+- Prioritises consecutive absences when a child has more than 5 absent days
+- Excludes holidays/closed days you specify — they're invisible to the report
+- Saves the report as a plain `.txt` file
+- Progress bar and status log keep you informed while parsing
 
-Screenshots
+## Screenshots
 
 <img width="993" height="690" alt="image" src="https://github.com/user-attachments/assets/e5569f6c-c1c1-4139-898f-42c0f036c208" />
 
@@ -26,7 +26,7 @@ Screenshots
 
 
 
-Requirements
+## Requirements
 
 Python 3.8+
 The following packages (auto-installed on first run if missing):
