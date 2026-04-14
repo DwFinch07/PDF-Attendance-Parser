@@ -25,7 +25,7 @@ A desktop app that reads monthly attendance sign-in/sign-out PDFs from De Colore
 <img width="992" height="682" alt="image" src="https://github.com/user-attachments/assets/dddd0485-cf5f-46ad-a3c5-0e261c297773" />
 
 
-
+<img width="1107" height="583" alt="image" src="https://github.com/user-attachments/assets/5ffc4dc0-d026-45c4-8c23-b54f450154f1" />
 ## Requirements
 
 Python 3.8+
@@ -36,4 +36,4 @@ pdfplumber
 
 
 
-Warning: This PDF scanner only works for De Colores Learning Center & Childcare, major changes will have to be done with parsing function (extract_child_name (if "" line), most functions should work out of the box depending on how attendance sheet is formatted) to scan a different template. Ex of how template looked for my application: <img width="1107" height="583" alt="image" src="https://github.com/user-attachments/assets/5ffc4dc0-d026-45c4-8c23-b54f450154f1" />
+Warning: This PDF scanner only works for De Colores Learning Center & Childcare, major changes will have to be done with parsing function (extract_child_name (if "" line), most functions should work out of the box depending on how attendance sheet is formatted) to scan a different template. Ex of how template looked for my application: 
