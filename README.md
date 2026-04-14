@@ -39,4 +39,4 @@ pdfplumber
 
 
 ## Warning
-This PDF scanner is purpose-built for De Colores Learning Center & Childcare. While core scanning functions should work out of the box for most template layouts, the parsing logic: extract_child_name (if "" line) may require significant adjustments if the attendance sheet format differs from the expected template. Showcase of example template is above requirements.
+This PDF scanner is purpose-built for De Colores Learning Center & Childcare (Arizona Department of Economic Security Sign-In / Sign-Out Record). While core scanning functions should work out of the box for most template layouts, the parsing logic: extract_child_name (if "" line) may require significant adjustments if the attendance sheet format differs from the expected template. Showcase of example template is above requirements.
