@@ -3,13 +3,13 @@ A desktop app that reads monthly attendance sign-in/sign-out PDFs from De Colore
 
 Features
 
-Auto-detects month and year from the PDF header
-Extracts attended days for each child using sign-in time patterns
-Groups children who missed the same days (for efficient notification)
-Prioritises consecutive absences when a child has more than 5 absent days
-Excludes holidays/closed days you specify — they're invisible to the report
-Saves the report as a plain .txt file
-Progress bar and status log keep you informed while parsing
+Auto-detects month and year from the PDF header.
+Extracts attended days for each child using sign-in time patterns.
+Groups children who missed the same days (for efficient notification).
+Prioritises consecutive absences when a child has more than 5 absent days.
+Excludes holidays/closed days you specify — they're invisible to the report.
+Saves the report as a plain .txt file.
+Progress bar and status log keep you informed while parsing.
 
 Screenshots
 
