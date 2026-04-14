@@ -255,26 +255,28 @@ def build_report(records, school_days, month_name, year):
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Hex color constants used throughout the UI — defined once so they're easy to change
-# Most colors didnt use (remove the ones not used like  accemt 2)
-ACCENT   = "#4F8EF7"
-ACCENT2  = "#A78BFA"
+
+
+#Colors used for text and UI elements, change if you want a different color scheme
+MYBLUE   = "#4F8EF7"
+MYPURPLE  = "#A78BFA"
 BG_DARK  = "#0F1117"
 BG_CARD  = "#1A1D2E"
 BG_SIDE  = "#13151F"
 TEXT     = "#E8EAF0"
 SUBTEXT  = "#8B8FA8"
-SUCCESS  = "#34D399"
-WARNING  = "#FBBF24"
-DANGER   = "#F87171"
-BORDER   = "#2A2D3E"
+MYGREEN  = "#34D399"
+MYYELLOW  = "#FBBF24"
+MYRED   = "#F87171"
+MYBLACK   = "#2A2D3E"
 
 
 class StatCard(ctk.CTkFrame):
     # A reusable UI card widget that shows a label and a large number
-    def __init__(self, parent, label, value, color=ACCENT, **kwargs):
+    def __init__(self, parent, label, value, color=MYBLUE, **kwargs):
         # **kwargs passes any extra keyword arguments up to the parent class
         super().__init__(parent, fg_color=BG_CARD, corner_radius=12,
-                         border_width=1, border_color=BORDER, **kwargs)
+                         border_width=1, border_color=MYBLACK, **kwargs)
         ctk.CTkLabel(self, text=label, font=("Courier New", 11),
                      text_color=SUBTEXT).pack(pady=(14, 2))
         self.val_label = ctk.CTkLabel(self, text=str(value),
@@ -323,7 +325,7 @@ class App(ctk.CTk):
                      text_color=TEXT, justify="center").grid(
             row=1, column=0, padx=24, pady=(0, 32))
 
-        ctk.CTkFrame(sb, height=1, fg_color=BORDER).grid(
+        ctk.CTkFrame(sb, height=1, fg_color=MYBLACK).grid(
             row=2, column=0, sticky="ew", padx=16)  # Thin horizontal divider line
 
         self._nav_btns = []
@@ -336,7 +338,7 @@ class App(ctk.CTk):
             btn = ctk.CTkButton(sb, text=label, anchor="w",
                                 font=("Courier New", 13),
                                 fg_color="transparent", text_color=SUBTEXT,
-                                hover_color=BORDER, corner_radius=8, height=42,
+                                hover_color=MYBLACK, corner_radius=8, height=42,
                                 # lambda n=name captures the current value of name in the loop
                                 # Without n=name, all buttons would use the last value of name
                                 command=lambda n=name: self._show_page(n))
@@ -372,7 +374,7 @@ class App(ctk.CTk):
                      text_color=TEXT).pack(side="left")
 
         drop = ctk.CTkFrame(frame, fg_color=BG_CARD, corner_radius=16,
-                            border_width=2, border_color=BORDER)
+                            border_width=2, border_color=MYBLACK)
         drop.grid(row=1, column=0, sticky="ew", padx=32, pady=20)
         drop.grid_columnconfigure(0, weight=1)
 
@@ -388,15 +390,15 @@ class App(ctk.CTk):
 
         ctk.CTkButton(btn_row, text="📂  Open PDF",
                       font=("Courier New", 13, "bold"),
-                      fg_color=ACCENT, hover_color="#3A72D8",
+                      fg_color=MYBLUE, hover_color="#3A72D8",
                       corner_radius=10, height=42, width=160,
                       command=self._select_file).pack(side="left", padx=8)
 
         self._parse_btn = ctk.CTkButton(btn_row, text="⚡  Parse",
                                         font=("Courier New", 13, "bold"),
                                         fg_color=BG_CARD,
-                                        border_width=1, border_color=ACCENT,
-                                        text_color=ACCENT, hover_color=BORDER,
+                                        border_width=1, border_color=MYBLUE,
+                                        text_color=MYBLUE, hover_color=MYBLACK,
                                         corner_radius=10, height=42, width=160,
                                         state="disabled",  # Greyed out until a file is selected
                                         command=self._start_parse)
@@ -405,8 +407,8 @@ class App(ctk.CTk):
         self._save_btn = ctk.CTkButton(btn_row, text="💾  Save Report",
                                         font=("Courier New", 13, "bold"),
                                         fg_color=BG_CARD,
-                                        border_width=1, border_color=ACCENT,
-                                        text_color=ACCENT, hover_color=BORDER,
+                                        border_width=1, border_color=MYBLUE,
+                                        text_color=MYBLUE, hover_color=MYBLACK,
                                         corner_radius=10, height=42, width=160,
                                         state="disabled",  # Greyed out until a report is generated
                                         command=self._save_report)
@@ -415,10 +417,10 @@ class App(ctk.CTk):
         self._file_label = ctk.CTkLabel(drop, text="No file selected",
                                          font=("Courier New", 11), text_color=SUBTEXT)
         self._file_label.grid(row=3, column=0, pady=(0, 8))
-        
+
         #Progress bar is still broken but core functionality works (EDIT LATER)
         self._progress = ctk.CTkProgressBar(drop, width=400, height=6,
-                                             fg_color=BORDER, progress_color=ACCENT,
+                                             fg_color=MYBLACK, progress_color=MYBLUE,
                                              corner_radius=3)
         self._progress.set(0)
         self._progress_label = ctk.CTkLabel(drop, text="",
@@ -431,10 +433,10 @@ class App(ctk.CTk):
             # weight=1 means all columns share space equally; minsize stops them squishing too narrow
             cards_frame.grid_columnconfigure(i, weight=1, minsize=120)
 
-        self._stat_total   = StatCard(cards_frame, "TOTAL CHILDREN",     "—", ACCENT)
-        self._stat_absent  = StatCard(cards_frame, "WITH ABSENCES",      "—", WARNING)
-        self._stat_perfect = StatCard(cards_frame, "PERFECT ATTENDANCE", "—", SUCCESS)
-        self._stat_groups  = StatCard(cards_frame, "SHARED GROUPS",      "—", ACCENT2)
+        self._stat_total   = StatCard(cards_frame, "TOTAL CHILDREN",     "—", MYBLUE)
+        self._stat_absent  = StatCard(cards_frame, "WITH ABSENCES",      "—", MYYELLOW)
+        self._stat_perfect = StatCard(cards_frame, "PERFECT ATTENDANCE", "—", MYGREEN)
+        self._stat_groups  = StatCard(cards_frame, "SHARED GROUPS",      "—", MYPURPLE)
 
         for col, card in enumerate([self._stat_total, self._stat_absent,
                                      self._stat_perfect, self._stat_groups]):
@@ -447,7 +449,7 @@ class App(ctk.CTk):
 
         self._log = ctk.CTkTextbox(frame, height=120, fg_color=BG_CARD,
                                     text_color=SUBTEXT, font=("Courier New", 11),
-                                    corner_radius=12, border_width=1, border_color=BORDER)
+                                    corner_radius=12, border_width=1, border_color=MYBLACK)
         self._log.grid(row=4, column=0, sticky="ew", padx=32, pady=(0, 28))
         self._log.configure(state="disabled")  # Read-only — users can't type in the log
         self._log_write("Ready. Open a PDF file to get started.")
@@ -471,7 +473,7 @@ class App(ctk.CTk):
 
         self._results_box = ctk.CTkTextbox(frame, fg_color=BG_CARD, text_color=TEXT,
                                             font=("Courier New", 12), corner_radius=12,
-                                            border_width=1, border_color=BORDER, wrap="none")
+                                            border_width=1, border_color=MYBLACK, wrap="none")
         self._results_box.grid(row=1, column=0, sticky="nsew", padx=32, pady=(0, 28))
         self._results_box.insert("1.0", "Parse a PDF to see results here.")  # "1.0" = line 1, char 0
         self._results_box.configure(state="disabled")
@@ -489,7 +491,7 @@ class App(ctk.CTk):
             row=0, column=0, sticky="w", padx=32, pady=(28, 20))
 
         card = ctk.CTkFrame(frame, fg_color=BG_CARD, corner_radius=16,
-                            border_width=1, border_color=BORDER)
+                            border_width=1, border_color=MYBLACK)
         card.grid(row=1, column=0, sticky="ew", padx=32)
         card.grid_columnconfigure(0, weight=1)
 
@@ -509,7 +511,7 @@ class App(ctk.CTk):
             card,
             placeholder_text="e.g.  24, 25",
             font=("Courier New", 13),
-            fg_color=BG_DARK, border_color=BORDER,
+            fg_color=BG_DARK, border_color=MYBLACK,
             text_color=TEXT, height=40)
         self._holiday_entry.grid(row=2, column=0, sticky="ew", padx=24, pady=(0, 8))
         # Trigger feedback update on every keystroke so the user sees live validation
@@ -528,11 +530,11 @@ class App(ctk.CTk):
         # _event is passed by tkinter but we don't use it — underscore signals it's intentionally ignored
         days, err = self._parse_holiday_entry()
         if err:
-            self._holiday_feedback.configure(text=f"⚠  {err}", text_color=DANGER)
+            self._holiday_feedback.configure(text=f"⚠  {err}", text_color=MYRED)
         elif days:
             self._holiday_feedback.configure(
                 text=f"✓  {len(days)} day(s) excluded: {', '.join(map(str, days))}",
-                text_color=SUCCESS)
+                text_color=MYGREEN)
         else:
             self._holiday_feedback.configure(
                 text="No days entered — all weekdays will count as school days.",
@@ -583,7 +585,7 @@ class App(ctk.CTk):
         # Highlight the active nav button and dim the others
         for n, btn in self._nav_btns:
             btn.configure(text_color=TEXT if n == name else SUBTEXT,
-                          fg_color=BORDER if n == name else "transparent")
+                          fg_color=MYBLACK if n == name else "transparent")
         # Show only the selected page; hide all others by removing them from the grid
         for n, pg in self._pages.items():
             if n == name:
