@@ -6,17 +6,16 @@ Copyright (c) 2026 Dominic Finch
 Licensed under the MIT License
 """
 
-import customtkinter as ctk  # Modern-styled tkinter UI library
-import threading              # Lets us run tasks in the background without freezing the UI
-import os                     # File path utilities
-import sys                    # Access to the Python interpreter itself
-import calendar               # Built-in calendar logic (days in month, weekdays, etc.)
-import re                     # Regular expressions — pattern matching on strings
-from tkinter import filedialog, messagebox  # Native file picker and popup dialog boxes
-from collections import defaultdict         # A dict that auto-creates missing keys with a default value
-
+import customtkinter as ctk  
+import threading             
+import os                     
+import sys                    
+import calendar              
+import re                     
+from tkinter import filedialog, messagebox  
+from collections import defaultdict         
 try:
-    import pdfplumber  # Try to import pdfplumber (PDF reading library)
+    import pdfplumber 
 except ImportError:
     # If it's not installed, install it automatically then import it
     import subprocess
@@ -24,9 +23,8 @@ except ImportError:
                            "--break-system-packages", "-q"])
     import pdfplumber
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 #  Attendance parsing logic
-# ─────────────────────────────────────────────────────────────────────────────
 
 # Maps month name strings to their number — used when reading month names from the PDF
 MONTHS = {
@@ -40,7 +38,8 @@ def weekdays_in_month(year, month, excluded_days=None):
     # Days outside the month are represented as 0
     for week in calendar.monthcalendar(year, month):
         for col, day in enumerate(week):
-            # col < 5 means Mon–Fri only; day != 0 means it's a real day in this month
+            # day != 0 means to return a real day in month
+            # days are sorted by monday=0, tuesday=1, etc. (change if always closed on a certain weekday)
             if day != 0 and col < 5:
                 days.append(day)
     result = frozenset(days)  # frozenset = immutable set, good for lookups
@@ -49,16 +48,17 @@ def weekdays_in_month(year, month, excluded_days=None):
     return result
 
 
-# Find on page where the month is
 def detect_month_year(pdf_path):
     # Regex pattern to find something like "April 2026" in the PDF text
     month_re = re.compile(r'\b(' + '|'.join(MONTHS) + r')\s+(\d{4})\b', re.IGNORECASE)
+    # month_re returns April 2026
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages[:3]:  # Only check the first 3 pages (can be lowered because year always mentioned on first page(change if layout changes))
             text = page.extract_text() or ""  # Extract text; fall back to "" if None
+            # If this fails the pdf likely has text that cannot be extracted / scanned pdf.
             m = month_re.search(text)
             if m:
-                # m.group(1) = the month word, m.group(2) = the 4-digit year
+                # returns year then month (look at MONTHS dict to see what number each month corresponds to)
                 return int(m.group(2)), MONTHS[m.group(1).lower()]
             # fix error find better parse method to find month
     raise ValueError("Could not detect month/year from PDF.")
@@ -289,6 +289,9 @@ class StatCard(ctk.CTkFrame):
         self.val_label.configure(text=str(value))
 
 
+
+
+# UI 
 class App(ctk.CTk):
     # The main application window — inherits from ctk.CTk (the root window class)
     def __init__(self):
@@ -306,8 +309,7 @@ class App(ctk.CTk):
         self._build_sidebar()
         self._build_main()
 
-    # ── Sidebar ───────────────────────────────────────────────────────────────
-
+    #Sidebar
     def _build_sidebar(self):
         sb = ctk.CTkFrame(self, width=220, fg_color=BG_SIDE,
                           corner_radius=0, border_width=0)
@@ -327,6 +329,8 @@ class App(ctk.CTk):
 
         ctk.CTkFrame(sb, height=1, fg_color=MYBLACK).grid(
             row=2, column=0, sticky="ew", padx=16)  # Thin horizontal divider line
+
+
 
         self._nav_btns = []
         nav = [
