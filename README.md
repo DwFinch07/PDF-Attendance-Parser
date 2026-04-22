@@ -1,5 +1,5 @@
-PDF Attendance Parser
-A desktop app that reads monthly attendance sign-in/sign-out PDFs from De Colores Learning Center & Childcare and generates an absence report — showing which days each child missed, and grouping children who share the same absent days.
+PDF Attendance Parser is 
+a desktop application that reads monthly attendance sign-in/sign-out PDFs from De Colores Learning Center & Childcare and generates an absence report — showing which days each child missed, and grouping children who share the same absent days.
 
 ## Features
 
