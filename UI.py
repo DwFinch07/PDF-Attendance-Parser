@@ -66,13 +66,13 @@ def detect_month_year(pdf_path):
 def normalise_name(raw):
     raw = raw.strip()
     if "," in raw:
-        # Name is in "Last, First" format — title-case each part separately
+# last then first output
         last, first = raw.split(",", 1)
         return f"{last.strip().title()}, {first.strip().title()}"
-    return raw.title()  # title() capitalises the first letter of each word
+    return raw.title()  
 
 def extract_child_name(lines):
-    # Find the line containing the centre name — the child's name is near it
+    # Find the line containing the centre name the childs name is near it
     dc_idx = None
     for i, line in enumerate(lines):
         #find line that says "De Colores Learning Center" — the child name is usually on the same line
@@ -112,14 +112,12 @@ def extract_child_name(lines):
             child_raw = re.sub(r'\s+[a-z].*$', '', child_raw).strip()
             if "," in child_raw:
                 return normalise_name(child_raw)
-        # Simpler fallback: match a plain "Last, First" with nothing after it
         m2 = re.match(r'^([A-Za-z][A-Za-z\'\- ]+,\s+[A-Za-z][A-Za-z \.\']+)\s*$', cand)
         if m2:
             return normalise_name(m2.group(1).strip())
     return None
 
-# Pre-compiled regex for speed — matches lines starting with a day number and a time
-# e.g. "5 08:30 AM" — compiled once here rather than re-compiled on every line
+#  matches lines starting with a day number and a time
 _DATE_RE = re.compile(r'^(\d{1,2})\s+\d{1,2}:\d{2}\s+(?:AM|PM)')
 
 def extract_attended_days(lines, school_days):
@@ -150,7 +148,7 @@ def parse_pdf(pdf_path, school_days):
             else:
                 records[child_name] = attended
             # yield sends a value back to the caller without ending the function
-            # This lets us report progress page-by-page while parsing continues
+            # This lets report progress for each page while parsing continues (makes it wayyyy faster)
             yield page_num, total, None
     yield None, None, records  # Final yield sends the completed records dict
 
@@ -164,11 +162,11 @@ def best_absent_days(attended, school_days, n=5):
     if not absent or n <= 0:
         return []
     if len(absent) <= n:
-        return absent  # Fewer absences than limit — return them all
-
+        return absent  # Fewer absences than limit 
+    #TODO
     # Build a rank for each school day by its position in the sorted list
-    # This lets us check if two absent days are consecutive school days
-    # (even if there's a holiday between them in calendar terms)
+    #  check if two absent days are consecutive school days
+    # (even if there's a holiday between them in calendar terms) (change if you want to prioritise different days instead of consecutive runs)
     school_order = sorted(school_days)
     rank = {d: i for i, d in enumerate(school_order)}  # Dict comprehension: {day: index}
 
@@ -210,8 +208,8 @@ def build_report(records, school_days, month_name, year):
     # defaultdict(list) auto-creates an empty list for any new key
     groups = defaultdict(list)
     for name, days in child_absences.items():
-        groups[tuple(days)].append(name)  # tuple() makes the list hashable (usable as a dict key)
-    groups = dict(groups)  # Convert back to a regular dict
+        groups[tuple(days)].append(name) # Make a dict key from the days
+    groups = dict(groups)  # Convert back to a regular dict to be used in function
 
     shared     = {k: v for k, v in groups.items() if len(v) > 1}  # Dict comprehension: groups with 2+ children
     singletons = {k: v for k, v in groups.items() if len(v) == 1}
@@ -302,9 +300,9 @@ class App(ctk.CTk):
         self.configure(fg_color=BG_DARK)
 
         # Instance variables — underscore prefix is a convention meaning "internal use"
-        self._pdf_path   = None   # Path to the selected PDF file
-        self._report_txt = None   # The generated report text
-        self._parsing    = False  # Flag to prevent double-parsing
+        self._pdf_path   = None  
+        self._report_txt = None   
+        self._parsing    = False  # Flag to prevent double-parsing (had crashes when clicking "Parse" multiple times quickly)
 
         self._build_sidebar()
         self._build_main()
@@ -313,7 +311,7 @@ class App(ctk.CTk):
     def _build_sidebar(self):
         sb = ctk.CTkFrame(self, width=220, fg_color=BG_SIDE,
                           corner_radius=0, border_width=0)
-        # grid() places the widget in a row/column layout; sticky="nsew" stretches it to fill the cell
+        # grid() places the widget in a row/column layout; sticky="nsew" stretches it to fill the cell (north/south/east/west in order)
         sb.grid(row=0, column=0, sticky="nsew")
         sb.grid_propagate(False)  # Prevent the frame from shrinking to fit its contents
         sb.grid_rowconfigure(8, weight=1)  # Row 8 gets all spare vertical space (pushes nav up)
@@ -358,7 +356,7 @@ class App(ctk.CTk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        # Build all three pages and store them — only one is shown at a time
+        # Build all three pages and store them (make sure to show 1 at time)
         self._pages["dashboard"] = self._build_dashboard(container)
         self._pages["results"]   = self._build_results(container)
         self._pages["settings"]  = self._build_settings(container)
@@ -397,7 +395,11 @@ class App(ctk.CTk):
                       fg_color=MYBLUE, hover_color="#3A72D8",
                       corner_radius=10, height=42, width=160,
                       command=self._select_file).pack(side="left", padx=8)
+        
 
+
+        
+        # ***************** (Format for buttons)
         self._parse_btn = ctk.CTkButton(btn_row, text="⚡  Parse",
                                         font=("Courier New", 13, "bold"),
                                         fg_color=BG_CARD,
